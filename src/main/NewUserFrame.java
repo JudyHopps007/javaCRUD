@@ -1,5 +1,8 @@
 package main;
 
+import user.UserDao;
+import user.UserModel;
+
 public class NewUserFrame extends javax.swing.JFrame {
 
     public NewUserFrame() {
@@ -11,7 +14,7 @@ public class NewUserFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         btnCreateUser = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtUserName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -35,7 +38,7 @@ public class NewUserFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
+                    .addComponent(txtUserName)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCreateUser)
@@ -50,7 +53,7 @@ public class NewUserFrame extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -62,7 +65,9 @@ public class NewUserFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateUserActionPerformed
-        
+        UserModel newUser = new UserModel();
+        newUser.setUserName(txtUserName.getText().trim());
+        UserDao.insertUser(newUser);
     }//GEN-LAST:event_btnCreateUserActionPerformed
 
     public static void main(String args[]) {
@@ -99,7 +104,7 @@ public class NewUserFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnCreateUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
 
 }
