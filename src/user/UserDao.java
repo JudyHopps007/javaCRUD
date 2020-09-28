@@ -15,16 +15,16 @@ import javax.swing.JOptionPane;
 public class UserDao {
     public static void insertUser(UserModel user) {
         Connection conn = DbConnection.createConnection();
-        PreparedStatement st = null;
+        PreparedStatement ps = null;
         try {
-            st = conn.prepareStatement("INSERT INTO users VALUES('" + user.getUserName() + "')");
+            ps = conn.prepareStatement("INSERT INTO USERS VALUES('" + user.getUserName() + "')");
             
-            st.execute();
+            ps.execute();
             JOptionPane.showMessageDialog(null, "Usuário criado com sucesso.");
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }finally {
-            DbConnection.closeConnection(conn, st);
+            DbConnection.closeConnection(conn, ps);
         }
     }
     
@@ -35,7 +35,7 @@ public class UserDao {
         List<UserModel> allUsers = new ArrayList<>();
         
         try {
-            st = conn.prepareStatement("SELECT * FROM users");
+            st = conn.prepareStatement("SELECT * FROM USERS");
             rs = st.executeQuery();
             
             while(rs.next()) {
@@ -51,5 +51,33 @@ public class UserDao {
             DbConnection.closeConnection(conn, st, rs);
         }
         return allUsers;
+    }
+    public static void updateUser(String newName, String oldName) {
+        Connection conn = DbConnection.createConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("UPDATE USERS SET NOME_USUARIO = '" + newName + "' WHERE NOME_USUARIO = '" + oldName + "'");
+            
+            ps.execute();
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso.");
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            DbConnection.closeConnection(conn, ps);
+        }
+    }
+    public static void deleteUser(UserModel user) {
+        Connection conn = DbConnection.createConnection();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("DELETE FROM USERS WHERE NOME_USUARIO = '" + user.getUserName() + "'");
+            
+            ps.execute();
+            JOptionPane.showMessageDialog(null, "Deletado com sucesso.");
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            DbConnection.closeConnection(conn, ps);
+        }
     }
 }

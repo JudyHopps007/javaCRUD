@@ -23,6 +23,11 @@ public class UserManagerFrame extends javax.swing.JFrame {
             });
         }
     }
+    private String getSelectedRow() { 
+        String selecteRow = tblUsers.getValueAt(tblUsers.getSelectedRow(),
+                tblUsers.getSelectedColumn()).toString();
+        return selecteRow;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -57,6 +62,11 @@ public class UserManagerFrame extends javax.swing.JFrame {
             }
         });
         tblUsers.setColumnSelectionAllowed(true);
+        tblUsers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUsersMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblUsers);
         tblUsers.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (tblUsers.getColumnModel().getColumnCount() > 0) {
@@ -66,8 +76,18 @@ public class UserManagerFrame extends javax.swing.JFrame {
         jLabel1.setText("Nome do usuário:");
 
         btnUpdate.setText("Atualizar");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Deletar");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,6 +125,26 @@ public class UserManagerFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsersMouseClicked
+        if(tblUsers.getSelectedRow() != -1){
+            txtNewUserName.setText(getSelectedRow());
+        }
+    }//GEN-LAST:event_tblUsersMouseClicked
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        UserDao.updateUser(txtNewUserName.getText().trim(), getSelectedRow());
+        setDataTable();
+        txtNewUserName.setText("");
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        UserModel user = new UserModel();
+        user.setUserName(getSelectedRow());
+        UserDao.deleteUser(user);
+        setDataTable();
+        txtNewUserName.setText("");
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

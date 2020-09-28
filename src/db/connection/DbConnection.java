@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DbConnection {
-    private static final String DBSTRING ="jdbc:derby://localhost:1527/crud_java";
+    private static final String DBSTRING ="jdbc:derby://localhost:1527/crud_java"; //String de conexão
     
     public static Connection createConnection() {
         Connection conn;
@@ -27,17 +27,17 @@ public class DbConnection {
             throw new RuntimeException("Error: ", ex);
         }
     }
-    public static void closeConnection(Connection connection, PreparedStatement pstm) {
+    public static void closeConnection(Connection connection, PreparedStatement ps) {
         try {
             closeConnection(connection);
-            pstm.close();
+            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static void closeConnection(Connection connection, PreparedStatement pstm, ResultSet rs) {
+    public static void closeConnection(Connection connection, PreparedStatement ps, ResultSet rs) {
         try {
-            closeConnection(connection, pstm);
+            closeConnection(connection, ps);
             rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(DbConnection.class.getName()).log(Level.SEVERE, null, ex);

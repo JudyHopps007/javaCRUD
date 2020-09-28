@@ -68,6 +68,7 @@ public class NewUserFrame extends javax.swing.JFrame {
         UserModel newUser = new UserModel();
         newUser.setUserName(txtUserName.getText().trim());
         UserDao.insertUser(newUser);
+        txtUserName.setText("");
     }//GEN-LAST:event_btnCreateUserActionPerformed
 
     public static void main(String args[]) {
